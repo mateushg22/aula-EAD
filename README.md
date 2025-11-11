@@ -1,2 +1,2 @@
-# aula-EAD
+# Construindo um Projeto Ágil no GitHub: Da Gestão ao Controle de Qualidade.
 O projeto consiste no desenvolvimento de um sistema de gerenciamento de tarefas baseado em metodologias ágeis, criado uma solução agil para empresa fictícia TechFlow Solutions para atender uma startup de logística. O objetivo é permitir o acompanhamento em tempo real do fluxo de trabalho valorizando a rapides, organização, priorizando as tarefas críticas e o monitoramento do desempenho da equipe. Com o foco na colaboração, eficiência e usabilidade utilizando a ferramenta Github para o controle e integração contínua das atividades.
