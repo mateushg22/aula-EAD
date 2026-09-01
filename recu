@@ -1,0 +1,113 @@
+extends RigidBody2D
+
+var speed = 500
+var dir = [-1, 1]
+
+static var score_p1 = 0
+static var score_p2 = 0
+static var rodada = 1
+
+
+var tempo_acumulado: float = 0.0
+
+func _ready() -> void:
+	add_to_group("bolas")
+	body_entered.connect(_on_body_entered)
+	atualizar_placar()
+	
+	if get_tree().get_nodes_in_group("bolas").size() == 1:
+		reset()
+
+func _physics_process(delta: float) -> void:
+	score()
+	
+	
+	if not freeze:
+		tempo_acumulado += delta
+		if tempo_acumulado >= 5.0: 
+			tempo_acumulado = 0.0
+			linear_velocity *= 1.05
+
+func reset():
+	global_position = get_viewport_rect().size / 2
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	tempo_acumulado = 0.0
+	
+	await get_tree().create_timer(1.5).timeout
+	
+	freeze = false
+	apply_central_impulse(Vector2(dir.pick_random() * speed, dir.pick_random() * speed))
+
+func score():
+	if global_position.x >= get_viewport_rect().size.x:
+		score_p1 += 1
+		
+		
+		if score_p1 >= 5:
+			fim_de_jogo("Player 1")
+			return
+			
+		mudar_rodada()
+		
+	elif global_position.x <= 0:
+		score_p2 += 1
+		
+		
+		if score_p2 >= 5:
+			fim_de_jogo("Player 2")
+			return
+			
+		mudar_rodada()
+
+func fim_de_jogo(vencedor: String):
+	if has_node("../score"):
+		$"../score".text = vencedor + " VENCEU!"
+	
+	freeze = true
+	linear_velocity = Vector2.ZERO
+	
+	await get_tree().create_timer(3.0).timeout
+	score_p1 = 0
+	score_p2 = 0
+	rodada = 1
+	get_tree().reload_current_scene()
+
+func mudar_rodada():
+	rodada += 1
+	if rodada > 3:
+		rodada = 1
+		
+	atualizar_placar()
+	limpar_ou_resetar()
+
+func atualizar_placar():
+	if has_node("../score"):
+		$"../score".text = str(score_p1) + ":" + str(score_p2) + " (R" + str(rodada) + ")"
+
+func _on_body_entered(body: Node) -> void:
+	if body.name == "Player" or body.name == "Player2":
+		
+	
+		if rodada == 1:
+			linear_velocity *= 1.15
+		
+		if rodada == 1:
+			pass
+			
+		if rodada == 2:
+			if get_tree().get_nodes_in_group("bolas").size() < 2:
+				var nova = self.duplicate()
+				get_parent().add_child(nova)
+				
+				var lado = -1 if body.name == "Player2" else 1
+				nova.global_position = global_position + Vector2(lado * 30, 0)
+				
+		if rodada == 3:
+			call_deferred("limpar_ou_resetar")
+
+func limpar_ou_resetar():
+	if get_tree().get_nodes_in_group("bolas").size() <= 1:
+		reset()
+	else:
+		queue_free()
