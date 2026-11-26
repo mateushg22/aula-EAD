@@ -1,0 +1,139 @@
+├── App.js
+└── src/
+    ├── assets/
+    │   └── interview.png
+    ├── components/
+    │   └── Botao.js
+    └── screens/
+        └── Onboarding.js
+
+
+
+src/components/Botao.js
+        
+JavaScript
+import React from 'react';
+import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
+
+export default function Botao({ texto, corFundo, corTexto, mensagem }) {
+  return (
+    <TouchableOpacity
+      style={[styles.botao, { backgroundColor: corFundo }]}
+      onPress={() => Alert.alert('Aviso', mensagem)}
+    >
+      <Text style={[styles.texto, { color: corTexto }]}>{texto}</Text>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  botao: {
+    flex: 1,
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  texto: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
+
+src/screens/Home.js
+
+JavaScript
+import React from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import Botao from '../components/Botao';
+import fotoEntrevista from '../assets/interview.png';
+
+export default function Home() {
+  return (
+    <View style={styles.container}>
+      {/* Logo */}
+      <Text style={styles.logo}>
+        Job<Text style={styles.logoAzul}>Now</Text>
+      </Text>
+
+      {/* Imagem e texto do meio */}
+      <View style={styles.centro}>
+        <Image source={fotoEntrevista} style={styles.imagem} />
+
+        <Text style={styles.frase}>
+          Track all your job applicatons and don't get lost in the process
+        </Text>
+      </View>
+
+      {/* Botões de baixo */}
+      <View style={styles.areaBotoes}>
+        <Botao
+          texto="Back"
+          corFundo="#F0F0F5"
+          corTexto="#222"
+          mensagem="Você clicou em Back"
+        />
+
+        <View style={{ width: 15 }} />
+
+        <Botao
+          texto="Next"
+          corFundo="#007BFF"
+          corTexto="#FFF"
+          mensagem="Você clicou em Next"
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 25,
+    paddingTop: 50,
+  },
+  logo: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#222',
+  },
+  logoAzul: {
+    color: '#3B5998',
+  },
+  centro: {
+    alignItems: 'center',
+  },
+  imagem: {
+    width: 250,
+    height: 220,
+    resizeMode: 'contain',
+    marginBottom: 30,
+  },
+  frase: {
+    fontSize: 19,
+    textAlign: 'center',
+    color: '#222',
+    paddingHorizontal: 10,
+  },
+  areaBotoes: {
+    flexDirection: 'row',
+    width: '100%',
+    marginBottom: 15,
+  },
+});
+
+
+App.js
+
+JavaScript
+import React from 'react';
+import Home from './src/screens/Home';
+
+export default function App() {
+  return <Home />;
+}
+
