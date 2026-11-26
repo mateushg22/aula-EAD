@@ -8,6 +8,12 @@
         └── Onboarding.js
 
 
+Aqui estão os comandos para criar toda essa estrutura (src/assets, src/components/Botao.js e src/screens/Home.js) de uma vez só
+
+PowerShell
+mkdir src/assets, src/components, src/screens; ni src/components/Botao.js, src/screens/Home.js -Force
+
+
 
 src/components/Botao.js
         
