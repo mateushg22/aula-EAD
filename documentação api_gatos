@@ -8,6 +8,11 @@ cd app-gatos
 npm install axios
 
 
+Para criar a pasta src, as subpastas services e screens e os arquivos api.js e Home.js de uma vez só pelo terminal do VS Code (dentro da pasta app-gatos), rode o comando correspondente ao seu terminal
+
+PowerShell
+mkdir src/services, src/screens; ni src/services/api.js, src/screens/Home.js -Force
+
 
   app-gatos/
 ├── App.js
