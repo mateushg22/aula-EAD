@@ -1,0 +1,29 @@
+abra o terminal (ou Git Bash no Windows) e navegue até a pasta onde está o seu código:
+
+Bash
+cd caminho/para/sua/pasta
+
+Transforme a pasta em um repositório local e informe seu nome e e-mail do GitHub:
+
+Bash
+git init
+git config user.name "Seu Nome"
+git config user.email "seu-email@exemplo.com"
+
+
+Prepare os arquivos para envio e registre a versão inicial (crie um arquivo .gitignore antes se quiser ignorar pastas como node_modules/ ou .env):
+
+Bash
+git add .
+git commit -m "Primeiro commit"
+
+
+Renomeie a branch para main, vincule a URL do repositório remoto e faça o envio:
+
+Bash
+git branch -M main
+git remote add origin https://github.com/seu-usuario/meu-projeto.git
+git push -u origin main
+
+Atualizações futuras e alternativas visuais
+Para enviar novas alterações depois: basta rodar git add ., git commit -m "Descrição da mudança" e git push.
